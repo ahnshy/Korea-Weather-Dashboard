@@ -1,6 +1,6 @@
-# Korea Weather Dashboard Next.js
+# KR Weekly Weather — Next.js + MUI (Dark by Default)
 
-A clean **weekly weather service for South Korea** built with **Next.js (App Router)** and **Material UI**.  
+A clean **weekly weather service for Korea** built with **Next.js (App Router)** and **Material UI**.  
 Shows **7–16 day** forecasts from **Open‑Meteo**, with **umbrella advice** and **clothing suggestions** for each day.
 
 > Default theme is **Dark**. Includes **Light/Dark/Night theme toggle**, **city selector**, **forecast‑length combo (7/14/16)**, **inline loading spinner**, and a **theme‑aware Open‑Meteo logo with link**.
@@ -22,6 +22,20 @@ Shows **7–16 day** forecasts from **Open‑Meteo**, with **umbrella advice** a
 ---
 
 ## 🧰 Tech Stack
+
+
+## 🛠️ Stacks
+![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)
+![App Router](https://img.shields.io/badge/App%20Router-enabled-blue?style=flat-square)
+![Material%20UI](https://img.shields.io/badge/Material%20UI-6.x-007FFF?logo=mui&logoColor=white)
+![SWR](https://img.shields.io/badge/SWR-data--fetching-000000?style=flat-square)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
+![Open--Meteo%20API](https://img.shields.io/badge/Open--Meteo-API-green?style=flat-square)
+![Geolocation](https://img.shields.io/badge/Browser-Geolocation-FF6F00?style=flat-square)
+![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel&logoColor=white)
+<br/><br/>
+
 
 - **Next.js 15 (App Router)**
 - **React 18**
