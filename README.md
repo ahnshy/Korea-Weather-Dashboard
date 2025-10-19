@@ -1,4 +1,4 @@
-# KR Weekly Weather — Next.js + MUI (Dark by Default)
+# Korea Weather Dashboard
 
 A clean **weekly weather service for Korea** built with **Next.js (App Router)** and **Material UI**.  
 Shows **7–16 day** forecasts from **Open‑Meteo**, with **umbrella advice** and **clothing suggestions** for each day.
@@ -50,13 +50,13 @@ Shows **7–16 day** forecasts from **Open‑Meteo**, with **umbrella advice** a
 
 ```bash
 npm install   # or: pnpm i / yarn
-npm run dev
+next dev
 # http://localhost:3000
 ```
 
 Production:
 ```bash
-npm run build && npm run start
+next build && next dev
 ```
 
 ---
