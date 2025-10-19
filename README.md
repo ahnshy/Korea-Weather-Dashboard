@@ -50,13 +50,13 @@ Shows **7–16 day** forecasts from **Open‑Meteo**, with **umbrella advice** a
 
 ```bash
 npm install   # or: pnpm i / yarn
-npm run dev
+next dev
 # http://localhost:3000
 ```
 
 Production:
 ```bash
-npm run build && npm run start
+next build && next dev
 ```
 
 ---
