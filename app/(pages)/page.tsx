@@ -1,75 +1,211 @@
 "use client";
+
 import * as React from "react";
-import { AppBar, Toolbar, Typography, Box, Container, Grid, Autocomplete, TextField, IconButton, Paper, Stack, Divider, Select, MenuItem, FormControl } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Container,
+  Grid,
+  Autocomplete,
+  TextField,
+  IconButton,
+  Paper,
+  Stack,
+  Divider,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
+import type { SelectChangeEvent } from "@mui/material/Select";
 import LocationSearching from "@mui/icons-material/LocationSearching";
+import { useLocale, useTranslations } from "next-intl";
 import ModeToggle from "@/components/ModeToggle";
 import OpenMeteoMark from "@/components/OpenMeteoMark";
 import ForecastCard from "@/components/ForecastCard";
+import IntlProvider, { useLocaleSettings } from "@/components/IntlProvider";
 import useSWR from "swr";
-import { KOREAN_CITIES } from "@/lib/cities";
+import { KOREAN_CITIES, getCityLabel, type AppLocale, type City } from "@/lib/cities";
 
 type ApiDay = { date: string; tmin: number; tmax: number; precipProb: number };
-const fetcher = (url:string)=>fetch(url).then(r=>r.json());
 
-export default function Page(){
-  const [city, setCity] = React.useState(KOREAN_CITIES[0]);
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
+
+function WeatherDashboard() {
+  const t = useTranslations();
+  const locale = useLocale() as AppLocale;
+  const { setLocale } = useLocaleSettings();
+  const [city, setCity] = React.useState<City>(KOREAN_CITIES[0]);
   const [days, setDays] = React.useState(7);
-  const params = new URLSearchParams({ lat: String(city.latitude), lon: String(city.longitude), days: String(days) });
-  const { data, isLoading, isValidating } = useSWR<{days: ApiDay[]}>(`/api/forecast?${params.toString()}`, fetcher);
   const [pending, setPending] = React.useState(false);
-  React.useEffect(()=>{ if (!isLoading && !isValidating) setPending(false); }, [isLoading, isValidating]);
+
+  const params = new URLSearchParams({
+    lat: String(city.latitude),
+    lon: String(city.longitude),
+    days: String(days),
+  });
+
+  const { data, isLoading, isValidating } = useSWR<{ days: ApiDay[] }>(
+    `/api/forecast?${params.toString()}`,
+    fetcher
+  );
+
+  React.useEffect(() => {
+    if (!isLoading && !isValidating) {
+      setPending(false);
+    }
+  }, [isLoading, isValidating]);
 
   const geolocate = () => {
     if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(pos=>{
+
+    navigator.geolocation.getCurrentPosition((pos) => {
       const { latitude, longitude } = pos.coords;
-      setPending(true); setCity({ name: "현재 위치", latitude, longitude });
+      setPending(true);
+      setCity({
+        nameKo: t("currentLocation"),
+        nameEn: t("currentLocation"),
+        latitude,
+        longitude,
+      });
     });
+  };
+
+  const handleLanguageChange = (event: SelectChangeEvent) => {
+    setLocale(event.target.value as AppLocale);
   };
 
   return (
     <Box>
-      <AppBar position="fixed" color="transparent" elevation={0} sx={(t)=>({ zIndex: t.zIndex.drawer+1, bgcolor: t.palette.background.paper, borderBottom: `1px solid ${"rgba(255,255,255,0.08)"}`, backdropFilter: "saturate(180%) blur(8px)" })}>
-        <Toolbar sx={{gap:2, flexWrap:"wrap", alignItems:"center"}}>
-          <Typography variant="h6" sx={{flex:1, minWidth:160}}>한국날씨</Typography>
-          <Autocomplete sx={{width: 280}} options={KOREAN_CITIES} value={city} onChange={(_,v)=>{ if(v){ setPending(true); setCity(v);} }} getOptionLabel={(c)=>c.name} renderInput={(params)=>(<TextField {...params} size="small" placeholder="도시 선택"/>)}/>
+      <AppBar
+        position="fixed"
+        color="transparent"
+        elevation={0}
+        sx={(theme) => ({
+          zIndex: theme.zIndex.drawer + 1,
+          bgcolor: theme.palette.background.paper,
+          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          backdropFilter: "saturate(180%) blur(8px)",
+        })}
+      >
+        <Toolbar sx={{ gap: 2, flexWrap: "wrap", alignItems: "center" }}>
+          <Typography variant="h6" sx={{ flex: 1, minWidth: 160 }}>
+            {t("appTitle")}
+          </Typography>
+
+          <Autocomplete
+            sx={{ width: { xs: "100%", sm: 140 } }}
+            options={KOREAN_CITIES}
+            value={city}
+            isOptionEqualToValue={(option, value) =>
+              option.latitude === value.latitude && option.longitude === value.longitude
+            }
+            onChange={(_, value) => {
+              if (value) {
+                setPending(true);
+                setCity(value);
+              }
+            }}
+            getOptionLabel={(option) => getCityLabel(option, locale)}
+            renderInput={(params) => (
+              <TextField {...params} size="small" placeholder={t("cityPlaceholder")} />
+            )}
+          />
+
           <FormControl size="small" sx={{ minWidth: 90 }}>
-            <Select value={days} onChange={(e)=>setDays(Number(e.target.value))} displayEmpty>
-              <MenuItem value={7}>7일</MenuItem>
-              <MenuItem value={16}>16일 (최대)</MenuItem>
+            <Select value={String(days)} onChange={(e) => setDays(Number(e.target.value))}>
+              <MenuItem value="7">{t("days7")}</MenuItem>
+              <MenuItem value="16">{t("days16")}</MenuItem>
             </Select>
           </FormControl>
-          <IconButton onClick={geolocate} aria-label="현재 위치"><LocationSearching/></IconButton>
-          <ModeToggle/>
+
+          <FormControl size="small" sx={{ minWidth: 140 }}>
+            <InputLabel id="language-select-label">{t("language")}</InputLabel>
+            <Select
+              labelId="language-select-label"
+              value={locale}
+              label={t("language")}
+              onChange={handleLanguageChange}
+            >
+              <MenuItem value="ko">{"\uD55C\uAD6D\uC5B4"}</MenuItem>
+              <MenuItem value="en">English</MenuItem>
+            </Select>
+          </FormControl>
+
+          <IconButton onClick={geolocate} aria-label={t("currentLocation")}>
+            <LocationSearching />
+          </IconButton>
+          <ModeToggle />
         </Toolbar>
       </AppBar>
       <Toolbar />
 
-      <Container className="container" sx={{mt:1}}>
-        <Paper variant="outlined" sx={{p:2, mb:2}}>
-          <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wrap" useFlexGap spacing={2}>
-            <Typography variant="h5">{city.name} {days}일 예보</Typography>
+      <Container className="container" sx={{ mt: 1 }}>
+        <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            flexWrap="wrap"
+            useFlexGap
+            spacing={2}
+          >
+            <Typography variant="h5">
+              {getCityLabel(city, locale)} {days}
+              {t("forecastSuffix")}
+            </Typography>
             <Box sx={{ ml: "auto", display: "flex", alignItems: "center", gap: 1 }}>
-              <Box component="a" href="https://open-meteo.com" target="_blank" rel="noreferrer" sx={{ display: "inline-flex", alignItems: "center", gap: 1, textDecoration: "none", color: "inherit" }}>
+              <Box
+                component="a"
+                href="https://open-meteo.com"
+                target="_blank"
+                rel="noreferrer"
+                sx={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 1,
+                  textDecoration: "none",
+                  color: "inherit",
+                }}
+              >
                 <OpenMeteoMark size={18} />
-                <Typography variant="body2" sx={{ opacity: 0.75 }}>Powered by Open-Meteo</Typography>
+                <Typography variant="body2" sx={{ opacity: 0.75 }}>
+                  {t("poweredBy")}
+                </Typography>
               </Box>
             </Box>
           </Stack>
-          <Divider sx={{my:2}}/>
+          <Divider sx={{ my: 2 }} />
           <Grid container spacing={2}>
-            {data?.days?.map((d, i)=>(
-              <Grid key={i} item xs={12} sm={6} md={4}><ForecastCard date={d.date} tmin={d.tmin} tmax={d.tmax} precipProb={d.precipProb}/></Grid>
+            {data?.days?.map((day, index) => (
+              <Grid key={index} item xs={12} sm={6} md={4}>
+                <ForecastCard
+                  date={day.date}
+                  tmin={day.tmin}
+                  tmax={day.tmax}
+                  precipProb={day.precipProb}
+                />
+              </Grid>
             ))}
           </Grid>
-          {!data && (
+          {(!data || pending) && (
             <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 2 }}>
               <Box component="img" src="/wait-circle.gif" alt="Loading..." sx={{ width: 20, height: 20 }} />
-              <Typography variant="body2">예보 불러오는 중.....</Typography>
+              <Typography variant="body2">{t("loadingForecast")}</Typography>
             </Stack>
           )}
         </Paper>
       </Container>
     </Box>
+  );
+}
+
+export default function Page() {
+  return (
+    <IntlProvider>
+      <WeatherDashboard />
+    </IntlProvider>
   );
 }

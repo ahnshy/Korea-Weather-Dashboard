@@ -1,0 +1,14 @@
+{
+  "appTitle": "\uD55C\uAD6D \uC8FC\uAC04 \uB0A0\uC528",
+  "cityPlaceholder": "\uB3C4\uC2DC \uC120\uD0DD",
+  "currentLocation": "\uD604\uC7AC \uC704\uCE58",
+  "days7": "7\uC77C",
+  "days16": "16\uC77C(\uCD5C\uB300)",
+  "forecastSuffix": "\uC77C \uC608\uBCF4",
+  "loadingForecast": "\uC608\uBCF4\uB97C \uBD88\uB7EC\uC624\uB294 \uC911...",
+  "language": "\uC5B8\uC5B4",
+  "poweredBy": "Open-Meteo \uC81C\uACF5",
+  "minTemp": "\uCD5C\uC800",
+  "maxTemp": "\uCD5C\uACE0",
+  "precipProbability": "\uAC15\uC218\uD655\uB960"
+}

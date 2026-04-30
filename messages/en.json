@@ -1,0 +1,14 @@
+{
+  "appTitle": "Korea Weekly Weather",
+  "cityPlaceholder": "Select city",
+  "currentLocation": "Current location",
+  "days7": "7 days",
+  "days16": "16 days (max)",
+  "forecastSuffix": "-day forecast",
+  "loadingForecast": "Loading forecast...",
+  "language": "Language",
+  "poweredBy": "Powered by Open-Meteo",
+  "minTemp": "Min",
+  "maxTemp": "Max",
+  "precipProbability": "Precipitation"
+}
