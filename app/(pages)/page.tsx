@@ -90,9 +90,17 @@ function WeatherDashboard() {
         })}
       >
         <Toolbar sx={{ gap: 2, flexWrap: "wrap", alignItems: "center" }}>
-          <Typography variant="h6" sx={{ flex: 1, minWidth: 160 }}>
-            {t("appTitle")}
-          </Typography>
+          <Box sx={{ flex: 1, minWidth: 160, display: "flex", alignItems: "center", gap: 1.25 }}>
+            <Box
+              component="img"
+              src="/open-meteo.svg"
+              alt="Open-Meteo"
+              sx={{ width: 28, height: 28, display: "block", flexShrink: 0 }}
+            />
+            <Typography variant="h6" sx={{ lineHeight: 1.1 }}>
+              {t("appTitle")}
+            </Typography>
+          </Box>
 
           <Autocomplete
             sx={{ width: { xs: "100%", sm: 140 } }}
