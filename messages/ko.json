@@ -7,6 +7,8 @@
   "forecastSuffix": "\uC77C \uC608\uBCF4",
   "loadingForecast": "\uC608\uBCF4\uB97C \uBD88\uB7EC\uC624\uB294 \uC911...",
   "language": "\uC5B8\uC5B4",
+  "region": "\uC9C0\uC5ED",
+  "period": "\uAE30\uAC04",
   "poweredBy": "Open-Meteo \uC81C\uACF5",
   "minTemp": "\uCD5C\uC800",
   "maxTemp": "\uCD5C\uACE0",
