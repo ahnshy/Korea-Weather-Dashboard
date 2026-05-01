@@ -1,22 +1,25 @@
 "use client";
 
 import * as React from "react";
-import { NextIntlClientProvider } from "next-intl";
 import type { AppLocale } from "@/lib/cities";
 import enMessages from "@/messages/en.json";
 import koMessages from "@/messages/ko.json";
 
+type Messages = typeof enMessages;
+type MessageKey = keyof Messages;
+
 type LocaleSettingsContextValue = {
   locale: AppLocale;
   setLocale: (locale: AppLocale) => void;
+  t: (key: MessageKey) => string;
 };
 
 const STORAGE_KEY = "weather-dashboard-locale";
 
-const messages = {
+const messages: Record<AppLocale, Messages> = {
   ko: koMessages,
   en: enMessages,
-} as const;
+};
 
 const LocaleSettingsContext = React.createContext<LocaleSettingsContextValue | null>(null);
 
@@ -28,6 +31,14 @@ export function useLocaleSettings() {
   }
 
   return context;
+}
+
+export function useLocale() {
+  return useLocaleSettings().locale;
+}
+
+export function useTranslations() {
+  return useLocaleSettings().t;
 }
 
 export default function IntlProvider({ children }: { children: React.ReactNode }) {
@@ -50,19 +61,21 @@ export default function IntlProvider({ children }: { children: React.ReactNode }
     document.documentElement.lang = locale;
   }, [locale]);
 
+  const t = React.useCallback(
+    (key: MessageKey) => {
+      return messages[locale][key];
+    },
+    [locale]
+  );
+
   const value = React.useMemo(
     () => ({
       locale,
       setLocale,
+      t,
     }),
-    [locale, setLocale]
+    [locale, setLocale, t]
   );
 
-  return (
-    <LocaleSettingsContext.Provider value={value}>
-      <NextIntlClientProvider locale={locale} messages={messages[locale]}>
-        {children}
-      </NextIntlClientProvider>
-    </LocaleSettingsContext.Provider>
-  );
+  return <LocaleSettingsContext.Provider value={value}>{children}</LocaleSettingsContext.Provider>;
 }
