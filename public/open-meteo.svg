@@ -1,1 +1,54 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0' stop-color='#5ac8fa'/><stop offset='1' stop-color='#007aff'/></linearGradient></defs><rect width='64' height='64' rx='12' fill='#0b2a5a'/><g transform='translate(8,14)'><path d='M16 28a10 10 0 0 1 9-9 9 9 0 0 1 17 3h1a8 8 0 1 1 0 16H16a8 8 0 0 1 0-10z' fill='url(#g)' opacity='0.9'/><circle cx='27' cy='10' r='8' fill='#fff' opacity='0.95'/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1402" height="1122" viewBox="0 0 1402 1122" fill="none">
+  <defs>
+    <filter id="soft-shadow" x="250" y="120" width="1000" height="780" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feOffset dx="8" dy="10" in="SourceAlpha" result="off"/>
+      <feGaussianBlur in="off" stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .18 0" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="inner-soft" x="250" y="120" width="1000" height="780" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="5" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+
+    <linearGradient id="tube" x1="350" y1="160" x2="1120" y2="820" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F7F7F7"/>
+    </linearGradient>
+  </defs>
+
+  <g filter="url(#soft-shadow)" stroke="url(#tube)" stroke-width="38" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Umbrella top knob -->
+    <path d="M 902 166 L 902 184"/>
+
+    <!-- Umbrella canopy -->
+    <path d="M 759 413
+             C 759 300 817 215 902 211
+             C 1015 206 1140 285 1140 413
+             C 1123 413 1107 383 1069 383
+             C 1045 383 1026 396 1015 416
+             C 1001 394 974 383 944 383
+             C 919 383 898 396 887 416
+             C 873 394 846 383 817 383
+             C 793 383 772 394 759 413 Z"/>
+
+    <!-- Umbrella shaft and handle -->
+    <path d="M 902 414 L 902 551"/>
+    <path d="M 902 551
+             C 902 590 948 590 948 551"/>
+
+    <!-- Cloud outline -->
+    <path d="M 491 793
+             H 902
+             C 944 793 978 758 978 716
+             C 978 654 930 604 869 603
+             C 864 495 775 406 666 406
+             C 574 406 499 467 476 547
+             C 413 553 363 605 363 668
+             C 363 737 421 793 491 793 Z"/>
+  </g>
+</svg>
