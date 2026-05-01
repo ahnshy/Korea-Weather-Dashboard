@@ -110,12 +110,23 @@ function WeatherDashboard() {
             }}
             getOptionLabel={(option) => getCityLabel(option, locale)}
             renderInput={(params) => (
-              <TextField {...params} size="small" placeholder={t("cityPlaceholder")} />
+              <TextField
+                {...params}
+                size="small"
+                label={t("region")}
+                placeholder={t("cityPlaceholder")}
+              />
             )}
           />
 
           <FormControl size="small" sx={{ minWidth: 90 }}>
-            <Select value={String(days)} onChange={(e) => setDays(Number(e.target.value))}>
+            <InputLabel id="period-select-label">{t("period")}</InputLabel>
+            <Select
+              labelId="period-select-label"
+              value={String(days)}
+              label={t("period")}
+              onChange={(e) => setDays(Number(e.target.value))}
+            >
               <MenuItem value="7">{t("days7")}</MenuItem>
               <MenuItem value="16">{t("days16")}</MenuItem>
             </Select>
