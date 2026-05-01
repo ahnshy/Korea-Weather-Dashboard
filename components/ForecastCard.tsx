@@ -4,8 +4,8 @@ import * as React from "react";
 import { Card, CardContent, Typography, Chip, Stack } from "@mui/material";
 import UmbrellaOutlined from "@mui/icons-material/UmbrellaOutlined";
 import Thermostat from "@mui/icons-material/Thermostat";
-import { useLocale, useTranslations } from "next-intl";
 import type { AppLocale } from "@/lib/cities";
+import { useLocale, useTranslations } from "@/components/IntlProvider";
 import { umbrellaAdvice, clothingAdvice, comfortBadge } from "@/lib/recommendation";
 
 export default function ForecastCard({
