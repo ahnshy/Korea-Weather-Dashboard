@@ -21,11 +21,10 @@ import {
 } from "@mui/material";
 import type { SelectChangeEvent } from "@mui/material/Select";
 import LocationSearching from "@mui/icons-material/LocationSearching";
-import { useLocale, useTranslations } from "next-intl";
 import ModeToggle from "@/components/ModeToggle";
 import OpenMeteoMark from "@/components/OpenMeteoMark";
 import ForecastCard from "@/components/ForecastCard";
-import IntlProvider, { useLocaleSettings } from "@/components/IntlProvider";
+import IntlProvider, { useLocale, useLocaleSettings, useTranslations } from "@/components/IntlProvider";
 import useSWR from "swr";
 import { KOREAN_CITIES, getCityLabel, type AppLocale, type City } from "@/lib/cities";
 
