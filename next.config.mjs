@@ -1,1 +1,4 @@
-export default { reactStrictMode: true, experimental: { typedRoutes: true } };
+export default {
+  reactStrictMode: true,
+  typedRoutes: true
+};
