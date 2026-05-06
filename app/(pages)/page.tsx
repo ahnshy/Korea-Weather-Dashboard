@@ -261,8 +261,8 @@ function WeatherDashboard() {
       </AppBar>
       <Toolbar sx={{ display: { xs: "none", sm: "block" } }} />
 
-      <Container className="container" sx={{ mt: { xs: 2, sm: 1 } }}>
-        <Paper variant="outlined" sx={{ p: { xs: 1.5, sm: 2 }, mb: 2 }}>
+      <Container className="container" sx={{ mt: { xs: 3, sm: 1 } }}>
+        <Paper variant="outlined" sx={{ px: { xs: 1.5, sm: 2 }, pt: { xs: 2.25, sm: 2 }, pb: { xs: 1.5, sm: 2 }, mb: 2 }}>
           <Stack
             direction={{ xs: "column", sm: "row" }}
             alignItems={{ xs: "stretch", sm: "center" }}
@@ -270,15 +270,19 @@ function WeatherDashboard() {
             flexWrap="wrap"
             useFlexGap
             spacing={{ xs: 1, sm: 2 }}
+            sx={{ overflow: "visible" }}
           >
             <Typography
               variant="h5"
               sx={{
                 fontSize: { xs: "1.2rem", sm: "1.5rem" },
-                lineHeight: 1.25,
+                lineHeight: { xs: 1.45, sm: 1.25 },
                 minWidth: 0,
+                minHeight: { xs: 30, sm: "auto" },
+                pt: { xs: 0.25, sm: 0 },
                 wordBreak: "keep-all",
                 overflowWrap: "normal",
+                overflow: "visible",
               }}
             >
               <Box component="span" sx={{ whiteSpace: "nowrap" }}>
