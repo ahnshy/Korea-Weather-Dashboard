@@ -79,7 +79,7 @@ function WeatherDashboard() {
   return (
     <Box>
       <AppBar
-        position="fixed"
+        position="sticky"
         color="transparent"
         elevation={0}
         sx={(theme) => ({
@@ -192,7 +192,7 @@ function WeatherDashboard() {
       </AppBar>
       <Toolbar sx={{ display: { xs: "none", sm: "block" } }} />
 
-      <Container className="container" sx={{ mt: { xs: 1, sm: 1 } }}>
+      <Container className="container" sx={{ mt: { xs: 2, sm: 1 } }}>
         <Paper variant="outlined" sx={{ p: { xs: 1.5, sm: 2 }, mb: 2 }}>
           <Stack
             direction="row"
