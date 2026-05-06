@@ -3,7 +3,7 @@ import * as React from "react";
 import { createTheme, ThemeProvider, CssBaseline, PaletteMode } from "@mui/material";
 type AppMode = "light" | "dark" | "night";
 type ThemeContextType = { appMode: AppMode; setAppMode: (m: AppMode)=>void };
-export const ThemeCtx = React.createContext<ThemeContextType>({appMode: "dark", setAppMode: ()=>{}});
+export const ThemeCtx = React.createContext<ThemeContextType>({appMode: "light", setAppMode: ()=>{}});
 function makeTheme(mode: AppMode){
   const paletteMode: PaletteMode = mode === "light" ? "light" : "dark";
   const isNight = mode === "night";
@@ -16,8 +16,8 @@ function makeTheme(mode: AppMode){
 }
 export default function ThemeRegistry({children}:{children: React.ReactNode}){
   const [appMode, setAppMode] = React.useState<AppMode>(()=>{
-    if (typeof window !== "undefined") return (localStorage.getItem("appMode") as AppMode) || "dark";
-    return "dark";
+    if (typeof window !== "undefined") return (localStorage.getItem("appMode") as AppMode) || "light";
+    return "light";
   });
   React.useEffect(()=>{ localStorage.setItem("appMode", appMode); }, [appMode]);
   const theme = React.useMemo(()=>makeTheme(appMode), [appMode]);
