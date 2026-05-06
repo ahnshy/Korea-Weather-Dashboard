@@ -130,7 +130,18 @@ function WeatherDashboard() {
             }}
           >
             <Autocomplete
-              sx={{ gridColumn: { xs: "1 / -1", sm: "auto" }, minWidth: 0 }}
+              sx={{
+                gridColumn: { xs: "1 / -1", sm: "auto" },
+                minWidth: 0,
+                "& .MuiAutocomplete-inputRoot": {
+                  pr: { xs: "44px !important", sm: "39px !important" },
+                },
+                "& .MuiAutocomplete-input": {
+                  minWidth: 0,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                },
+              }}
               options={KOREAN_CITIES}
               value={city}
               isOptionEqualToValue={(option, value) =>
@@ -195,18 +206,32 @@ function WeatherDashboard() {
       <Container className="container" sx={{ mt: { xs: 2, sm: 1 } }}>
         <Paper variant="outlined" sx={{ p: { xs: 1.5, sm: 2 }, mb: 2 }}>
           <Stack
-            direction="row"
-            alignItems="center"
+            direction={{ xs: "column", sm: "row" }}
+            alignItems={{ xs: "stretch", sm: "center" }}
             justifyContent="space-between"
             flexWrap="wrap"
             useFlexGap
-            spacing={2}
+            spacing={{ xs: 1, sm: 2 }}
           >
-            <Typography variant="h5" sx={{ fontSize: { xs: "1.25rem", sm: "1.5rem" }, minWidth: 0 }}>
-              {getCityLabel(city, locale)} {days}
-              {t("forecastSuffix")}
+            <Typography
+              variant="h5"
+              sx={{
+                fontSize: { xs: "1.2rem", sm: "1.5rem" },
+                lineHeight: 1.25,
+                minWidth: 0,
+                wordBreak: "keep-all",
+                overflowWrap: "normal",
+              }}
+            >
+              <Box component="span" sx={{ whiteSpace: "nowrap" }}>
+                {getCityLabel(city, locale)}
+              </Box>{" "}
+              <Box component="span" sx={{ whiteSpace: "nowrap" }}>
+                {days}
+                {t("forecastSuffix")}
+              </Box>
             </Typography>
-            <Box sx={{ ml: { xs: 0, sm: "auto" }, display: "flex", alignItems: "center", gap: 1 }}>
+            <Box sx={{ ml: { xs: 0, sm: "auto" }, display: "flex", alignItems: "center", gap: 1, minWidth: 0 }}>
               <Box
                 component="a"
                 href="https://open-meteo.com"
