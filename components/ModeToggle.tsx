@@ -10,7 +10,19 @@ export default function ModeToggle(){
   const handle = (_:any, next:string|null)=>{ if (next) setAppMode(next as any); };
   return (
     <Tooltip title="Theme mode">
-      <ToggleButtonGroup exclusive size="small" value={appMode} onChange={handle} aria-label="theme mode toggle">
+      <ToggleButtonGroup
+        exclusive
+        size="small"
+        value={appMode}
+        onChange={handle}
+        aria-label="theme mode toggle"
+        sx={{
+          "& .MuiToggleButton-root": {
+            minWidth: { xs: 36, sm: 40 },
+            px: { xs: 0.75, sm: 1 },
+          },
+        }}
+      >
         <ToggleButton value="light" aria-label="light"><WbSunnyOutlined/></ToggleButton>
         <ToggleButton value="dark" aria-label="dark"><DarkModeOutlined/></ToggleButton>
         <ToggleButton value="night" aria-label="night"><NightlightOutlined/></ToggleButton>
