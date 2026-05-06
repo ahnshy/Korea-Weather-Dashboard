@@ -118,6 +118,20 @@ function WeatherDashboard() {
             <Typography variant="h6" sx={{ lineHeight: 1.1, fontSize: { xs: "1.05rem", sm: "1.25rem" } }}>
               {t("appTitle")}
             </Typography>
+            <Box
+              sx={{
+                ml: "auto",
+                display: { xs: "flex", sm: "none" },
+                alignItems: "center",
+                gap: 0.75,
+                flexShrink: 0,
+              }}
+            >
+              <IconButton onClick={geolocate} aria-label={t("currentLocation")} size="small">
+                <LocationSearching fontSize="small" />
+              </IconButton>
+              <ModeToggle />
+            </Box>
           </Box>
 
           <Box
@@ -125,7 +139,8 @@ function WeatherDashboard() {
               width: { xs: "100%", sm: "auto" },
               display: "grid",
               gridTemplateColumns: { xs: "minmax(0, 1fr) minmax(0, 1fr)", sm: "140px 90px 140px auto auto" },
-              gap: { xs: 1, sm: 2 },
+              columnGap: { xs: 1, sm: 2 },
+              rowGap: { xs: 1.25, sm: 2 },
               alignItems: "center",
             }}
           >
@@ -133,6 +148,15 @@ function WeatherDashboard() {
               sx={{
                 gridColumn: { xs: "1 / -1", sm: "auto" },
                 minWidth: 0,
+                pt: { xs: 0.25, sm: 0 },
+                "& .MuiInputLabel-root": {
+                  lineHeight: 1.35,
+                  px: 0.5,
+                  bgcolor: "background.paper",
+                },
+                "& .MuiInputLabel-root.MuiInputLabel-shrink": {
+                  transform: { xs: "translate(12px, -7px) scale(0.75)", sm: "translate(14px, -9px) scale(0.75)" },
+                },
                 "& .MuiAutocomplete-inputRoot": {
                   pr: { xs: "44px !important", sm: "39px !important" },
                 },
@@ -164,7 +188,21 @@ function WeatherDashboard() {
               )}
             />
 
-            <FormControl size="small" sx={{ minWidth: 0 }}>
+            <FormControl
+              size="small"
+              sx={{
+                minWidth: 0,
+                pt: { xs: 0.25, sm: 0 },
+                "& .MuiInputLabel-root": {
+                  lineHeight: 1.35,
+                  px: 0.5,
+                  bgcolor: "background.paper",
+                },
+                "& .MuiInputLabel-root.MuiInputLabel-shrink": {
+                  transform: { xs: "translate(12px, -7px) scale(0.75)", sm: "translate(14px, -9px) scale(0.75)" },
+                },
+              }}
+            >
               <InputLabel id="period-select-label">{t("period")}</InputLabel>
               <Select
                 labelId="period-select-label"
@@ -177,7 +215,21 @@ function WeatherDashboard() {
               </Select>
             </FormControl>
 
-            <FormControl size="small" sx={{ minWidth: 0 }}>
+            <FormControl
+              size="small"
+              sx={{
+                minWidth: 0,
+                pt: { xs: 0.25, sm: 0 },
+                "& .MuiInputLabel-root": {
+                  lineHeight: 1.35,
+                  px: 0.5,
+                  bgcolor: "background.paper",
+                },
+                "& .MuiInputLabel-root.MuiInputLabel-shrink": {
+                  transform: { xs: "translate(12px, -7px) scale(0.75)", sm: "translate(14px, -9px) scale(0.75)" },
+                },
+              }}
+            >
               <InputLabel id="language-select-label">{t("language")}</InputLabel>
               <Select
                 labelId="language-select-label"
@@ -190,12 +242,18 @@ function WeatherDashboard() {
               </Select>
             </FormControl>
 
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: { xs: "flex-start", sm: "center" } }}>
+            <Box
+              sx={{
+                display: { xs: "none", sm: "flex" },
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <IconButton onClick={geolocate} aria-label={t("currentLocation")}>
                 <LocationSearching />
               </IconButton>
             </Box>
-            <Box sx={{ display: "flex", justifyContent: { xs: "flex-end", sm: "flex-start" }, minWidth: 0 }}>
+            <Box sx={{ display: { xs: "none", sm: "flex" }, justifyContent: "flex-start", minWidth: 0 }}>
               <ModeToggle />
             </Box>
           </Box>
