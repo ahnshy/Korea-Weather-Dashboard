@@ -27,27 +27,27 @@ export default function ForecastCard({
   const badge = comfortBadge(tmin, tmax, locale);
 
   return (
-    <Card variant="outlined" sx={{ height: "100%" }}>
-      <CardContent>
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Typography variant="h6">
+    <Card variant="outlined" sx={{ height: "100%", minWidth: 0 }}>
+      <CardContent sx={{ p: { xs: 1.75, sm: 2 }, "&:last-child": { pb: { xs: 1.75, sm: 2 } } }}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
+          <Typography variant="h6" sx={{ minWidth: 0, fontSize: { xs: "1.1rem", sm: "1.25rem" } }}>
             {new Date(date).toLocaleDateString(dateLocale, {
               weekday: "short",
               month: "numeric",
               day: "numeric",
             })}
           </Typography>
-          <Chip label={badge} size="small" />
+          <Chip label={badge} size="small" sx={{ flexShrink: 0 }} />
         </Stack>
-        <Stack direction="row" spacing={2} mt={1} alignItems="center">
-          <Thermostat />
-          <Typography variant="body1">
+        <Stack direction="row" spacing={1.25} mt={1} alignItems="center">
+          <Thermostat fontSize="small" sx={{ flexShrink: 0 }} />
+          <Typography variant="body1" sx={{ minWidth: 0, overflowWrap: "anywhere" }}>
             {t("minTemp")} {Math.round(tmin)}° / {t("maxTemp")} {Math.round(tmax)}°
           </Typography>
         </Stack>
-        <Stack direction="row" spacing={2} mt={1} alignItems="center">
-          <UmbrellaOutlined />
-          <Typography variant="body1">
+        <Stack direction="row" spacing={1.25} mt={1} alignItems="center">
+          <UmbrellaOutlined fontSize="small" sx={{ flexShrink: 0 }} />
+          <Typography variant="body1" sx={{ minWidth: 0, overflowWrap: "anywhere" }}>
             {t("precipProbability")} {Math.round(precipProb)}%
           </Typography>
         </Stack>
@@ -56,8 +56,10 @@ export default function ForecastCard({
             label={umbrella}
             color={precipProb >= 40 ? "primary" : "default"}
             variant={precipProb >= 60 ? "filled" : "outlined"}
+            size="small"
+            sx={{ maxWidth: "100%" }}
           />
-          <Chip label={clothing} />
+          <Chip label={clothing} size="small" sx={{ maxWidth: "100%" }} />
         </Stack>
       </CardContent>
     </Card>
