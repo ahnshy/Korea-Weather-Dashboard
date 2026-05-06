@@ -83,85 +83,117 @@ function WeatherDashboard() {
         color="transparent"
         elevation={0}
         sx={(theme) => ({
+          position: { xs: "sticky", sm: "fixed" },
+          top: { xs: "env(safe-area-inset-top)", sm: 0 },
           zIndex: theme.zIndex.drawer + 1,
           bgcolor: theme.palette.background.paper,
           borderBottom: "1px solid rgba(255,255,255,0.08)",
           backdropFilter: "saturate(180%) blur(8px)",
         })}
       >
-        <Toolbar sx={{ gap: 2, flexWrap: "wrap", alignItems: "center" }}>
-          <Box sx={{ flex: 1, minWidth: 160, display: "flex", alignItems: "center", gap: 1.25 }}>
+        <Toolbar
+          sx={{
+            gap: { xs: 1, sm: 2 },
+            flexWrap: "wrap",
+            alignItems: "center",
+            px: { xs: 1.5, sm: 3 },
+            py: { xs: 1, sm: 0.75 },
+          }}
+        >
+          <Box
+            sx={{
+              flex: { xs: "1 0 100%", sm: 1 },
+              minWidth: 0,
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
             <Box
               component="img"
               src="/open-meteo.svg"
               alt="Open-Meteo"
-              sx={{ width: 28, height: 28, display: "block", flexShrink: 0 }}
+              sx={{ width: { xs: 24, sm: 28 }, height: { xs: 24, sm: 28 }, display: "block", flexShrink: 0 }}
             />
-            <Typography variant="h6" sx={{ lineHeight: 1.1 }}>
+            <Typography variant="h6" sx={{ lineHeight: 1.1, fontSize: { xs: "1.05rem", sm: "1.25rem" } }}>
               {t("appTitle")}
             </Typography>
           </Box>
 
-          <Autocomplete
-            sx={{ width: { xs: "100%", sm: 140 } }}
-            options={KOREAN_CITIES}
-            value={city}
-            isOptionEqualToValue={(option, value) =>
-              option.latitude === value.latitude && option.longitude === value.longitude
-            }
-            onChange={(_, value) => {
-              if (value) {
-                setPending(true);
-                setCity(value);
-              }
+          <Box
+            sx={{
+              width: { xs: "100%", sm: "auto" },
+              display: "grid",
+              gridTemplateColumns: { xs: "minmax(0, 1fr) minmax(0, 1fr)", sm: "140px 90px 140px auto auto" },
+              gap: { xs: 1, sm: 2 },
+              alignItems: "center",
             }}
-            getOptionLabel={(option) => getCityLabel(option, locale)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                size="small"
-                label={t("region")}
-                placeholder={t("cityPlaceholder")}
-              />
-            )}
-          />
+          >
+            <Autocomplete
+              sx={{ gridColumn: { xs: "1 / -1", sm: "auto" }, minWidth: 0 }}
+              options={KOREAN_CITIES}
+              value={city}
+              isOptionEqualToValue={(option, value) =>
+                option.latitude === value.latitude && option.longitude === value.longitude
+              }
+              onChange={(_, value) => {
+                if (value) {
+                  setPending(true);
+                  setCity(value);
+                }
+              }}
+              getOptionLabel={(option) => getCityLabel(option, locale)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  size="small"
+                  label={t("region")}
+                  placeholder={t("cityPlaceholder")}
+                />
+              )}
+            />
 
-          <FormControl size="small" sx={{ minWidth: 90 }}>
-            <InputLabel id="period-select-label">{t("period")}</InputLabel>
-            <Select
-              labelId="period-select-label"
-              value={String(days)}
-              label={t("period")}
-              onChange={(e) => setDays(Number(e.target.value))}
-            >
-              <MenuItem value="7">{t("days7")}</MenuItem>
-              <MenuItem value="16">{t("days16")}</MenuItem>
-            </Select>
-          </FormControl>
+            <FormControl size="small" sx={{ minWidth: 0 }}>
+              <InputLabel id="period-select-label">{t("period")}</InputLabel>
+              <Select
+                labelId="period-select-label"
+                value={String(days)}
+                label={t("period")}
+                onChange={(e) => setDays(Number(e.target.value))}
+              >
+                <MenuItem value="7">{t("days7")}</MenuItem>
+                <MenuItem value="16">{t("days16")}</MenuItem>
+              </Select>
+            </FormControl>
 
-          <FormControl size="small" sx={{ minWidth: 140 }}>
-            <InputLabel id="language-select-label">{t("language")}</InputLabel>
-            <Select
-              labelId="language-select-label"
-              value={locale}
-              label={t("language")}
-              onChange={handleLanguageChange}
-            >
-              <MenuItem value="ko">{"\uD55C\uAD6D\uC5B4"}</MenuItem>
-              <MenuItem value="en">English</MenuItem>
-            </Select>
-          </FormControl>
+            <FormControl size="small" sx={{ minWidth: 0 }}>
+              <InputLabel id="language-select-label">{t("language")}</InputLabel>
+              <Select
+                labelId="language-select-label"
+                value={locale}
+                label={t("language")}
+                onChange={handleLanguageChange}
+              >
+                <MenuItem value="ko">{"\uD55C\uAD6D\uC5B4"}</MenuItem>
+                <MenuItem value="en">English</MenuItem>
+              </Select>
+            </FormControl>
 
-          <IconButton onClick={geolocate} aria-label={t("currentLocation")}>
-            <LocationSearching />
-          </IconButton>
-          <ModeToggle />
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: { xs: "flex-start", sm: "center" } }}>
+              <IconButton onClick={geolocate} aria-label={t("currentLocation")}>
+                <LocationSearching />
+              </IconButton>
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: { xs: "flex-end", sm: "flex-start" }, minWidth: 0 }}>
+              <ModeToggle />
+            </Box>
+          </Box>
         </Toolbar>
       </AppBar>
-      <Toolbar />
+      <Toolbar sx={{ display: { xs: "none", sm: "block" } }} />
 
-      <Container className="container" sx={{ mt: 1 }}>
-        <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
+      <Container className="container" sx={{ mt: { xs: 1, sm: 1 } }}>
+        <Paper variant="outlined" sx={{ p: { xs: 1.5, sm: 2 }, mb: 2 }}>
           <Stack
             direction="row"
             alignItems="center"
@@ -170,11 +202,11 @@ function WeatherDashboard() {
             useFlexGap
             spacing={2}
           >
-            <Typography variant="h5">
+            <Typography variant="h5" sx={{ fontSize: { xs: "1.25rem", sm: "1.5rem" }, minWidth: 0 }}>
               {getCityLabel(city, locale)} {days}
               {t("forecastSuffix")}
             </Typography>
-            <Box sx={{ ml: "auto", display: "flex", alignItems: "center", gap: 1 }}>
+            <Box sx={{ ml: { xs: 0, sm: "auto" }, display: "flex", alignItems: "center", gap: 1 }}>
               <Box
                 component="a"
                 href="https://open-meteo.com"
